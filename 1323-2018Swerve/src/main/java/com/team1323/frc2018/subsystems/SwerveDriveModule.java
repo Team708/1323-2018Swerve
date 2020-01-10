@@ -16,8 +16,17 @@ import com.team254.lib.util.math.Translation2d;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import com.revrobotics.CANSparkMax;                    // JNP added
+import com.revrobotics.CANEncoder;                     // JNP added
+import com.revrobotics.CANSparkMax.IdleMode;           // JNP added
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;  // JNP added
+
+
 public class SwerveDriveModule extends Subsystem{
-	TalonSRX rotationMotor, driveMotor;
+	TalonSRX rotationMotor,   //  driveMotor;  JNP removed
+	CANSparkMax driveMotor;   // JNP added
+	CANEncoder  driveEncoder; // JNP added
+	
 	int moduleID;
 	String name = "Module ";
 	double rotationSetpoint = 0;
@@ -34,7 +43,10 @@ public class SwerveDriveModule extends Subsystem{
 	public SwerveDriveModule(int rotationSlot, int driveSlot, int moduleID, 
 			int encoderOffset, Translation2d startingPose){
 		rotationMotor = new TalonSRX(rotationSlot);
-		driveMotor = new TalonSRX(driveSlot);
+		// driveMotor = new TalonSRX(driveSlot);
+		driveMotor   = new CANSparkMax(driveSlot, MotorType.kBrushless);  // JNP added
+		driveEncoder = new CANEncoder(driveMotor);                        // JNP added
+
 		configureMotors();
 		this.moduleID = moduleID;
 		name += (moduleID + " ");
@@ -81,7 +93,8 @@ public class SwerveDriveModule extends Subsystem{
     	rotationMotor.config_kI(0, 0.0, 10);
     	rotationMotor.config_kD(0, 120.0, 10);//80
     	rotationMotor.config_kF(0, 1023.0/Constants.SWERVE_ROTATION_MAX_SPEED, 10);
-    	rotationMotor.set(ControlMode.MotionMagic, rotationMotor.getSelectedSensorPosition(0));
+		rotationMotor.set(ControlMode.MotionMagic, rotationMotor.getSelectedSensorPosition(0));
+		
     	driveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
     	driveMotor.setSelectedSensorPosition(0, 0, 10);
     	driveMotor.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10, 10);
