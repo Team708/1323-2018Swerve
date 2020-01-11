@@ -10,8 +10,8 @@ public class Constants {
 	public static final double kEpsilon = 0.0001;
 	
 	//Physical Robot Dimensions
-	public static final double ROBOT_WIDTH = 39.0 / 12.0;
-	public static final double ROBOT_LENGTH = 34.0 / 12.0;
+	public static final double ROBOT_WIDTH = 17.50 / 12.0;
+	public static final double ROBOT_LENGTH = 17.5 / 12.0;
 	public static final double ROBOT_HALF_WIDTH = ROBOT_WIDTH / 2.0;
 	public static final double ROBOT_HALF_LENGTH = ROBOT_LENGTH / 2.0;
 	public static final double ROBOT_INTAKE_EXTRUSION = 11.0/12.0;
@@ -33,8 +33,8 @@ public class Constants {
 	public static final Translation2d kSecondLeftCubeCorner = kSecondLeftCube.translateBy(new Translation2d(0.0, -kCubeWidth/2.0));
 	
 	//Swerve Calculations Constants
-    public static final double WHEELBASE_LENGTH = 18.5 / 12.0; //feet
-    public static final double WHEELBASE_WIDTH  = 23.5 / 12.0; //feet
+    public static final double WHEELBASE_LENGTH = 24 / 12.0; //feet
+    public static final double WHEELBASE_WIDTH  = 24 / 12.0; //feet
     public static final double SWERVE_DIAGONAL = Math.hypot(WHEELBASE_LENGTH, WHEELBASE_WIDTH);
     
     //Camera Constants
@@ -56,10 +56,10 @@ public class Constants {
     public static final double SWERVE_DRIVE_MAX_SPEED = 5432.0;
     
     //Swerve Module Wheel Offsets
-	public static final int FRONT_RIGHT_ENCODER_STARTING_POS = -294;//done
-	public static final int FRONT_LEFT_ENCODER_STARTING_POS = -301;//done
-	public static final int REAR_LEFT_ENCODER_STARTING_POS = -2983;//done
-	public static final int REAR_RIGHT_ENCODER_STARTING_POS = -3480;//done
+	public static final int FRONT_RIGHT_ENCODER_STARTING_POS = 835;//done
+	public static final int FRONT_LEFT_ENCODER_STARTING_POS = 2503;//done
+	public static final int REAR_LEFT_ENCODER_STARTING_POS = 1371;//done
+	public static final int REAR_RIGHT_ENCODER_STARTING_POS = 1577;//done
 	
 	//Swerve Module Positions
 	public static final Translation2d kVehicleToModuleOne = new Translation2d(WHEELBASE_LENGTH/2, WHEELBASE_WIDTH/2);

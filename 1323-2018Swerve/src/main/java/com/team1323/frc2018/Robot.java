@@ -15,7 +15,8 @@ import com.team254.lib.util.math.Rotation2d;
 import com.team254.lib.util.math.Translation2d;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.IterativeRobot;
+// import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 	private Swerve swerve;
 	private Looper swerveLooper = new Looper();
 	private Xbox driver;
