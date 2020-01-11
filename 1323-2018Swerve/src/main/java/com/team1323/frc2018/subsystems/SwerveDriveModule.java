@@ -24,7 +24,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;  // JNP added
 
 
 public class SwerveDriveModule extends Subsystem{
-	TalonSRX rotationMotor;   //  driveMotor;  JNP removed
+	TalonSRX rotationMotor;   //  driveMotor;  JNP replaced
 	CANSparkMax driveMotor;   // JNP added
 	CANPIDController  drivePIDController; // JNP added
 	CANEncoder driveEncoder; // JNP added
@@ -100,7 +100,7 @@ public class SwerveDriveModule extends Subsystem{
     	rotationMotor.config_kF(0, 1023.0/Constants.SWERVE_ROTATION_MAX_SPEED, 10);
 		rotationMotor.set(ControlMode.MotionMagic, rotationMotor.getSelectedSensorPosition(0));
 		
-		// seciton removed and added JNP
+		// section removed and added JNP
 		// driveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		drivePIDController.setFeedbackDevice(driveEncoder);
 
@@ -169,8 +169,10 @@ public class SwerveDriveModule extends Subsystem{
 	}
 	
 	public void setDriveOpenLoop(double power){
-		// driveMotor.set(ControlMode.PercentOutput, power);  //JNP removed
-// JNP - think it's already defalted to -1 - 1
+		
+		driveMotor.set(power);
+		// driveMotor.set(ControlMode.PercentOutput, power);
+		
 		driveSetpoint = power;
 	}
 	
@@ -184,10 +186,9 @@ public class SwerveDriveModule extends Subsystem{
 	}
 	
 	public boolean drivePositionOnTarget(){
-		// if(driveMotor.getControlMode() == ControlMode.MotionMagic)
+		// if(driveMotor.getControlMode() == ControlMode.MotionMagic)  //FIX JNP
 		// 	return encUnitsToInches((int)Math.abs(driveSetpoint - driveMotor.getSelectedSensorPosition(0))) < 2.0;
 
-//JNP Removed need to add back in to get drive to go to position
 		return false;
 	}
 	

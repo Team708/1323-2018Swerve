@@ -56,10 +56,10 @@ public class Constants {
     public static final double SWERVE_DRIVE_MAX_SPEED = 5432.0;
     
     //Swerve Module Wheel Offsets
-	public static final int FRONT_RIGHT_ENCODER_STARTING_POS = 835;//done
-	public static final int FRONT_LEFT_ENCODER_STARTING_POS = 2503;//done
-	public static final int REAR_LEFT_ENCODER_STARTING_POS = 1371;//done
-	public static final int REAR_RIGHT_ENCODER_STARTING_POS = 1577;//done
+	public static final int FRONT_LEFT_ENCODER_STARTING_POS  = 1478+2048; // mod 0   1478 
+	public static final int FRONT_RIGHT_ENCODER_STARTING_POS = 1451+2048; // mod 1   1451
+	public static final int REAR_LEFT_ENCODER_STARTING_POS   = 2600-2048; // mod 2  2600
+	public static final int REAR_RIGHT_ENCODER_STARTING_POS  = 550+2048;  // mod 3  500
 	
 	//Swerve Module Positions
 	public static final Translation2d kVehicleToModuleOne = new Translation2d(WHEELBASE_LENGTH/2, WHEELBASE_WIDTH/2);

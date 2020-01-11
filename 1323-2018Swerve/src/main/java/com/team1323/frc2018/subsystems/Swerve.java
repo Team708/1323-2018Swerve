@@ -115,7 +115,8 @@ public class Swerve extends Subsystem{
 	public enum ControlState{
 		NEUTRAL, MANUAL, POSITION, PATH_FOLLOWING, ROTATION
 	}
-	private ControlState currentState = ControlState.NEUTRAL;
+	private ControlState currentState = ControlState.NEUTRAL;  
+
 	public ControlState getState(){
 		return currentState;
 	}

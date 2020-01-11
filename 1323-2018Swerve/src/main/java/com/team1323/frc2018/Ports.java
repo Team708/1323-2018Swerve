@@ -10,8 +10,12 @@ public class Ports {
 
 	public static final int FRONT_RIGHT_ROTATION= 15; 
     public static final int FRONT_LEFT_ROTATION = 16;
+    
     public static final int REAR_LEFT_ROTATION  = 17;
     public static final int REAR_RIGHT_ROTATION = 18;
+
+ // public static final int PIGEON_TALON = 52;
+    public static final int PIGEON       = 0;
     
 
     public static final int ELEVATOR_1 = 56;
@@ -24,7 +28,6 @@ public class Ports {
     
     public static final int WRIST = 53;
     
-    public static final int PIGEON_TALON = 52;
     
     //Solenoids
     public static final int INTAKE_PINCHERS = 0;
