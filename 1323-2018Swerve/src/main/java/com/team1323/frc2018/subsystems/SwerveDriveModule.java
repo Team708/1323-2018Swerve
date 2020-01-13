@@ -36,6 +36,7 @@ public class SwerveDriveModule extends Subsystem{
 	double currentAngle = 0;
 	int encoderOffset;
 	int encoderReverseFactor = 1;
+
 	private double previousEncDistance = 0;
 	private Rotation2d previousWheelAngle = new Rotation2d();
 	private Translation2d position;
@@ -125,7 +126,8 @@ public class SwerveDriveModule extends Subsystem{
 		// driveMotor.setSensorPhase(false);
 		
 		// driveMotor.setNeutralMode(NeutralMode.Brake);
-		driveMotor.setIdleMode(IdleMode.kBrake);
+		// driveMotor.setIdleMode(IdleMode.kBrake);
+		driveMotor.setIdleMode(IdleMode.kCoast);
 
 		// driveMotor.selectProfileSlot(0, 0);
 		
@@ -187,7 +189,7 @@ public class SwerveDriveModule extends Subsystem{
 	
 	public boolean drivePositionOnTarget(){
 		// if(driveMotor.getControlMode() == ControlMode.MotionMagic)  //FIX JNP
-		// 	return encUnitsToInches((int)Math.abs(driveSetpoint - driveMotor.getSelectedSensorPosition(0))) < 2.0;
+		// 	return encUnitsToInches((int)Math.abs(driveSetpoint - driveMotor.(0))) < 2.0;
 
 		return false;
 	}

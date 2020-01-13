@@ -179,7 +179,7 @@ public class Swerve extends Subsystem{
 			rotateInPlace(goalHeading);
 		else
 			headingController.setStabilizationTarget(
-					Util.placeInAppropriate0To360Scope(pose.getRotation().getUnboundedDegrees(), goalHeading));
+				Util.placeInAppropriate0To360Scope(pose.getRotation().getUnboundedDegrees(), goalHeading));
 	}
 	
 	public void rotateInPlace(double goalHeading){

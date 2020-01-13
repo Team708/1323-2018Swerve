@@ -23,7 +23,8 @@ public class Pigeon {
     
 	private Pigeon(){
 		try{
-			pigeon = new PigeonIMU(new TalonSRX(Ports.PIGEON));
+			// pigeon = new PigeonIMU(new TalonSRX(Ports.PIGEON));
+			pigeon = new PigeonIMU(Ports.PIGEON);
 			pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.BiasedStatus_2_Gyro, 5, 10);
 			pigeon.setStatusFramePeriod(PigeonIMU_StatusFrame.BiasedStatus_6_Accel, 5, 10);
 	
