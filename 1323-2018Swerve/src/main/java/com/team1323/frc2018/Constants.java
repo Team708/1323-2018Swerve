@@ -59,14 +59,17 @@ public class Constants {
 	public static final int FRONT_LEFT_ENCODER_STARTING_POS  = 1478+2048; // mod 0   1478 
 	public static final int FRONT_RIGHT_ENCODER_STARTING_POS = 1451+2048; // mod 1   1451
 	public static final int REAR_LEFT_ENCODER_STARTING_POS   = 2600-2048; // mod 2  2600
-	public static final int REAR_RIGHT_ENCODER_STARTING_POS  =  550+2048; // mod 3  500
+	public static final int REAR_RIGHT_ENCODER_STARTING_POS  = 550+2048;  // mod 3  500
 	
 	//Swerve Module Positions
 	public static final Translation2d kVehicleToModuleOne = new Translation2d(WHEELBASE_LENGTH/2, WHEELBASE_WIDTH/2);
 	public static final Translation2d kVehicleToModuleTwo = new Translation2d(WHEELBASE_LENGTH/2, -WHEELBASE_WIDTH/2);
 	public static final Translation2d kVehicleToModuleThree = new Translation2d(-WHEELBASE_LENGTH/2, -WHEELBASE_WIDTH/2);
 	public static final Translation2d kVehicleToModuleFour = new Translation2d(-WHEELBASE_LENGTH/2, WHEELBASE_WIDTH/2);
-
+	/*public static final Translation2d kVehicleToModuleOne = new Translation2d(0.0, 0.0);
+	public static final Translation2d kVehicleToModuleTwo = new Translation2d(0.0, 0.0);
+	public static final Translation2d kVehicleToModuleThree = new Translation2d(0.0, 0.0);
+	public static final Translation2d kVehicleToModuleFour = new Translation2d(0.0, 0.0);*/
 	
 	//Scrub Factors
 	//public static final double[] kWheelScrubFactors = new double[]{1.0, 0.9837398, 0.8832116788, 0.9837398};

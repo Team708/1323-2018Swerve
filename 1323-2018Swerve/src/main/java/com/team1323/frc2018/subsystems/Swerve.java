@@ -35,15 +35,14 @@ public class Swerve extends Subsystem{
 	List<SwerveDriveModule> modules;
 	List<SwerveDriveModule> positionModules;
 	
-	// AnalogInput ultrasonic;
-	// public double getUltrasonicReading(){
-	// 	return (((((ultrasonic.getVoltage() * 1000) - 293.0) / 4.88) * 5.0) + 300.0) * 0.0393701;
-	// }
-	// boolean ultraSensesWall = false;
-	// boolean robotXPassed = false;
+	AnalogInput ultrasonic;
+	public double getUltrasonicReading(){
+		return (((((ultrasonic.getVoltage() * 1000) - 293.0) / 4.88) * 5.0) + 300.0) * 0.0393701;
+	}
+	boolean ultraSensesWall = false;
+	boolean robotXPassed = false;
 	
-	// Pigeon pigeon;
-
+	Pigeon pigeon;
 	SwerveHeadingController headingController = new SwerveHeadingController();
 	public void temporarilyDisableHeadingController(){
 		headingController.temporarilyDisable();
@@ -75,17 +74,17 @@ public class Swerve extends Subsystem{
 	}
 	
 	private Swerve(){
-		frontLeft = new SwerveDriveModule(Ports.FRONT_LEFT_ROTATION, Ports.FRONT_LEFT_DRIVE,
-				0, Constants.FRONT_LEFT_ENCODER_STARTING_POS, Constants.kVehicleToModuleTwo);
 		frontRight = new SwerveDriveModule(Ports.FRONT_RIGHT_ROTATION, Ports.FRONT_RIGHT_DRIVE,
-				1, Constants.FRONT_RIGHT_ENCODER_STARTING_POS, Constants.kVehicleToModuleOne);
+				0, Constants.FRONT_RIGHT_ENCODER_STARTING_POS, Constants.kVehicleToModuleOne);
+		frontLeft = new SwerveDriveModule(Ports.FRONT_LEFT_ROTATION, Ports.FRONT_LEFT_DRIVE,
+				1, Constants.FRONT_LEFT_ENCODER_STARTING_POS, Constants.kVehicleToModuleTwo);
 		rearLeft = new SwerveDriveModule(Ports.REAR_LEFT_ROTATION, Ports.REAR_LEFT_DRIVE,
 				2, Constants.REAR_LEFT_ENCODER_STARTING_POS, Constants.kVehicleToModuleThree);
 		rearRight = new SwerveDriveModule(Ports.REAR_RIGHT_ROTATION, Ports.REAR_RIGHT_DRIVE,
 				3, Constants.REAR_RIGHT_ENCODER_STARTING_POS, Constants.kVehicleToModuleFour);
 		
 		modules = Arrays.asList(frontRight, frontLeft, rearLeft, rearRight);
-		positionModules = Arrays.asList(frontRight, frontLeft, rearLeft, rearRight);
+		positionModules = Arrays.asList(frontRight, frontLeft, rearRight);
 		
 		rearLeft.invertDriveMotor(true);
 		frontLeft.invertDriveMotor(true);
@@ -106,7 +105,6 @@ public class Swerve extends Subsystem{
 	private Rotation2d lastActiveVector = new Rotation2d();
 	private final Rotation2d rotationalVector = new Rotation2d();
 	private double maxSpeedFactor = 1.0;
-
 	public void setMaxSpeed(double max){
 		maxSpeedFactor = max;
 	}
@@ -185,6 +183,11 @@ public class Swerve extends Subsystem{
 	}
 	
 	public void rotateInPlace(double goalHeading){
+		/*setState(ControlState.POSITION);
+		kinematics.calculate(0, 0, 1);
+		modules.forEach((m) -> m.setModuleAngle(kinematics.wheelAngles[m.moduleID]));
+		Rotation2d deltaAngle = goalHeading.rotateBy(pose.getRotation().inverse());
+		modules.forEach((m) -> m.setDrivePositionTarget(deltaAngle.getRadians()*(Constants.SWERVE_DIAGONAL/2)*12.0));*/
 		setState(ControlState.ROTATION);
 		headingController.setStationaryTarget(
 				Util.placeInAppropriate0To360Scope(pose.getRotation().getUnboundedDegrees(), goalHeading));
@@ -205,35 +208,35 @@ public class Swerve extends Subsystem{
 		headingController.setSnapTarget(absoluteHeading);
 	}
 	
-	// public void setPositionTarget(double directionDegrees, double magnitudeInches){
-	// 	setState(ControlState.POSITION);
-	// 	modules.forEach((m) -> m.setModuleAngle(directionDegrees));
-	// 	modules.forEach((m) -> m.setDrivePositionTarget(magnitudeInches));
-	// }
+	public void setPositionTarget(double directionDegrees, double magnitudeInches){
+		setState(ControlState.POSITION);
+		modules.forEach((m) -> m.setModuleAngle(directionDegrees));
+		modules.forEach((m) -> m.setDrivePositionTarget(magnitudeInches));
+	}
 	
-	// public boolean positionOnTarget(){
-	// 	boolean onTarget = false;
-	// 	for(SwerveDriveModule m : modules){
-	// 		onTarget |= m.drivePositionOnTarget();
-	// 	}
-	// 	return onTarget;
-	// }
+	public boolean positionOnTarget(){
+		boolean onTarget = false;
+		for(SwerveDriveModule m : modules){
+			onTarget |= m.drivePositionOnTarget();
+		}
+		return onTarget;
+	}
 	
-	// public synchronized void followPath(PathfinderPath path, double goalHeading){
-	// 	hasFinishedPath = false;
-	// 	shouldUsePathfinder = false;
-	// 	distanceTraveled = 0;
-	// 	currentPathSegment = 0;
-	// 	currentPath = path;
-	// 	pathFollower = path.resetFollower();
-	// 	currentPathTrajectory = path.getTrajectory();
-	// 	headingController.setSnapTarget(goalHeading);
-	// 	setState(ControlState.PATH_FOLLOWING);
+	public synchronized void followPath(PathfinderPath path, double goalHeading){
+		hasFinishedPath = false;
+		shouldUsePathfinder = false;
+		distanceTraveled = 0;
+		currentPathSegment = 0;
+		currentPath = path;
+		pathFollower = path.resetFollower();
+		currentPathTrajectory = path.getTrajectory();
+		headingController.setSnapTarget(goalHeading);
+		setState(ControlState.PATH_FOLLOWING);
 		
-	// 	ultraSensesWall = false;
-	// 	robotXPassed = false;
-	// 	enableCubeTracking(false);
-	// }
+		ultraSensesWall = false;
+		robotXPassed = false;
+		enableCubeTracking(false);
+	}
 	
 	public synchronized void updatePose(double timestamp){
 		double x = 0;
