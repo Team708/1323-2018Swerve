@@ -78,7 +78,7 @@ public class Constants {
 	//Swerve Odometry Constants
 	public static final double SWERVE_WHEEL_DIAMETER = 3.93; //inches
 	public static final double ROTATION_ENCODER_RESOLUTION = 4096.0;
-	public static final double DRIVE_ENCODER_RESOLUTION    = 42.0;
+	public static final double DRIVE_ENC_RESOLUTION    = 42.0;
 	/**
 	 * The number of rotations the swerve drive encoder undergoes for every rotation of the wheel.
 	 */

@@ -216,11 +216,11 @@ public class SwerveDriveModule extends Subsystem{
 	}
 	
 	public int degreesToEncUnits(double degrees){
-		return (int) (degrees/360.0*Constants.ROTATION_ENCODER_RESOLUTION);
+		return (int) (degrees/360.0*Constants.DRIVE_ENCODER_RESOLUTION);
 	}
 	
 	public double encUnitsToDegrees(int encUnits){
-		return encUnits/Constants.ROTATION_ENCODER_RESOLUTION*360.0;
+		return encUnits/Constants.DRIVE_ENCODER_RESOLUTION*360.0;
 	}
 	
 	public Translation2d getPosition(){
