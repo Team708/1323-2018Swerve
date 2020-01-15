@@ -16,18 +16,18 @@ import com.team254.lib.util.math.Translation2d;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import com.revrobotics.CANSparkMax;                    // JNP added
-import com.revrobotics.CANEncoder;                     // JNP added
+import com.revrobotics.CANSparkMax;             
+import com.revrobotics.CANEncoder;          
 import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax.IdleMode;           // JNP added
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;  // JNP added
+import com.revrobotics.CANSparkMax.IdleMode;       
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 public class SwerveDriveModule extends Subsystem{
-	TalonSRX rotationMotor;   //  driveMotor;  JNP replaced
-	CANSparkMax driveMotor;   // JNP added
-	CANPIDController  drivePIDController; // JNP added
-	CANEncoder driveEncoder; // JNP added
+	TalonSRX rotationMotor; 
+	CANSparkMax driveMotor;  
+	CANPIDController  drivePIDController;
+	CANEncoder driveEncoder;
 
 	int moduleID;
 	String name = "Module ";
@@ -37,20 +37,18 @@ public class SwerveDriveModule extends Subsystem{
 	int encoderOffset;
 	int encoderReverseFactor = 1;
 
-	private double previousEncDistance = 0;
-	private Rotation2d previousWheelAngle = new Rotation2d();
-	private Translation2d position;
-	private Translation2d startingPosition;
-	private RigidTransform2d estimatedRobotPose = new RigidTransform2d();
+	private double           previousEncDistance = 0;
+	private Rotation2d       previousWheelAngle  = new Rotation2d();
+	private Translation2d    position;
+	private Translation2d    startingPosition;
+	private RigidTransform2d estimatedRobotPose  = new RigidTransform2d();
 	
 	public SwerveDriveModule(int rotationSlot, int driveSlot, int moduleID, 
 			int encoderOffset, Translation2d startingPose){
 		rotationMotor = new TalonSRX(rotationSlot);
-		driveMotor    = new CANSparkMax(driveSlot, MotorType.kBrushless);  // JNP added
-		drivePIDController  = new CANPIDController(driveMotor);  // JNP added
-		driveEncoder = new CANEncoder(driveMotor);   // JNP added
-
-		// driveMotor = new TalonSRX(driveSlot);    //JNP removed
+		driveMotor    = new CANSparkMax(driveSlot, MotorType.kBrushless);  
+		drivePIDController  = new CANPIDController(driveMotor); 
+		driveEncoder = new CANEncoder(driveMotor);   
 		
 		configureMotors();
 		this.moduleID = moduleID;
@@ -71,8 +69,7 @@ public class SwerveDriveModule extends Subsystem{
 	}
 	
 	public synchronized void reverseDriveSensor(boolean reverse){
-		// driveMotor.setSensorPhase(reverse);  // JNP removed
-		driveMotor.setInverted(reverse);        // JNP added
+		driveMotor.setInverted(reverse);
 	}
 	
 	public synchronized void reverseRotationSensor(boolean reverse){
@@ -184,7 +181,7 @@ public class SwerveDriveModule extends Subsystem{
 	
 		// driveMotor.set(ControlMode.MotionMagic, setpoint);  //JNP removed
 		driveEncoder.setPosition(setpoint);  //JNP added
-		driveSetpoint = setpoint;
+		driveSetpoint = driveSetpoint;
 	}
 	
 	public boolean drivePositionOnTarget(){
@@ -296,16 +293,13 @@ public class SwerveDriveModule extends Subsystem{
 		updateRawAngle();
 		SmartDashboard.putNumber(name + "Angle", getModuleAngle().getDegrees());
 		SmartDashboard.putNumber(name + "Pulse Width", rotationMotor.getSelectedSensorPosition(0));
-		// SmartDashboard.putNumber(name + "Drive Voltage", driveMotor.getMotorOutputVoltage()); //JNP removed
 		SmartDashboard.putNumber(name + "Drive Voltage", driveMotor.getVoltageCompensationNominalVoltage()); //JNP added
 		SmartDashboard.putNumber(name + "Inches Driven", getDriveDistanceInches());
-		//SmartDashboard.putNumber(name + "Rotation Voltage", rotationMotor.getMotorOutputVoltage());
-		// SmartDashboard.putNumber(name + "Velocity", encUnitsPer100msToFeetPerSecond(driveMotor.getSelectedSensorVelocity(0))); //JNP removed
-		if(rotationMotor.getControlMode() == ControlMode.MotionMagic)
-			SmartDashboard.putNumber(name + "Error", rotationMotor.getClosedLoopError(0));
+		// if(rotationMotor.getControlMode() == ControlMode.MotionMagic)
+		// 	SmartDashboard.putNumber(name + "Error", rotationMotor.getClosedLoopError(0));
 		SmartDashboard.putNumber(name + "X", position.x());
 		SmartDashboard.putNumber(name + "Y", position.y());
-		SmartDashboard.putNumber(name + "Drive Current", driveMotor.getOutputCurrent());
+		// SmartDashboard.putNumber(name + "Drive Current", driveMotor.getOutputCurrent());
 	}
 	
 }
