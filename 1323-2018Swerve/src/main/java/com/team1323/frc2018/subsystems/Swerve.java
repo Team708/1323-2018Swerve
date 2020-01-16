@@ -35,14 +35,14 @@ public class Swerve extends Subsystem{
 	List<SwerveDriveModule> modules;
 	List<SwerveDriveModule> positionModules;
 	
-	// AnalogInput ultrasonic;
-	// public double getUltrasonicReading(){
-	// 	return (((((ultrasonic.getVoltage() * 1000) - 293.0) / 4.88) * 5.0) + 300.0) * 0.0393701;
-	// }
-	// boolean ultraSensesWall = false;
-	// boolean robotXPassed = false;
+	AnalogInput ultrasonic;
+	public double getUltrasonicReading(){
+		return (((((ultrasonic.getVoltage() * 1000) - 293.0) / 4.88) * 5.0) + 300.0) * 0.0393701;
+	}
+	boolean ultraSensesWall = false;
+	boolean robotXPassed = false;
 	
-	// Pigeon pigeon;
+	Pigeon pigeon;
 
 	SwerveHeadingController headingController = new SwerveHeadingController();
 	public void temporarilyDisableHeadingController(){
@@ -205,35 +205,35 @@ public class Swerve extends Subsystem{
 		headingController.setSnapTarget(absoluteHeading);
 	}
 	
-	// public void setPositionTarget(double directionDegrees, double magnitudeInches){
-	// 	setState(ControlState.POSITION);
-	// 	modules.forEach((m) -> m.setModuleAngle(directionDegrees));
-	// 	modules.forEach((m) -> m.setDrivePositionTarget(magnitudeInches));
-	// }
+	public void setPositionTarget(double directionDegrees, double magnitudeInches){
+		setState(ControlState.POSITION);
+		modules.forEach((m) -> m.setModuleAngle(directionDegrees));
+		modules.forEach((m) -> m.setDrivePositionTarget(magnitudeInches));
+	}
 	
-	// public boolean positionOnTarget(){
-	// 	boolean onTarget = false;
-	// 	for(SwerveDriveModule m : modules){
-	// 		onTarget |= m.drivePositionOnTarget();
-	// 	}
-	// 	return onTarget;
-	// }
+	public boolean positionOnTarget(){
+		boolean onTarget = false;
+		for(SwerveDriveModule m : modules){
+			onTarget |= m.drivePositionOnTarget();
+		}
+		return onTarget;
+	}
 	
-	// public synchronized void followPath(PathfinderPath path, double goalHeading){
-	// 	hasFinishedPath = false;
-	// 	shouldUsePathfinder = false;
-	// 	distanceTraveled = 0;
-	// 	currentPathSegment = 0;
-	// 	currentPath = path;
-	// 	pathFollower = path.resetFollower();
-	// 	currentPathTrajectory = path.getTrajectory();
-	// 	headingController.setSnapTarget(goalHeading);
-	// 	setState(ControlState.PATH_FOLLOWING);
+	public synchronized void followPath(PathfinderPath path, double goalHeading){
+		hasFinishedPath = false;
+		shouldUsePathfinder = false;
+		distanceTraveled = 0;
+		currentPathSegment = 0;
+		currentPath = path;
+		pathFollower = path.resetFollower();
+		currentPathTrajectory = path.getTrajectory();
+		headingController.setSnapTarget(goalHeading);
+		setState(ControlState.PATH_FOLLOWING);
 		
-	// 	ultraSensesWall = false;
-	// 	robotXPassed = false;
-	// 	enableCubeTracking(false);
-	// }
+		ultraSensesWall = false;
+		robotXPassed = false;
+		enableCubeTracking(false);
+	}
 	
 	public synchronized void updatePose(double timestamp){
 		double x = 0;
@@ -357,7 +357,7 @@ public class Swerve extends Subsystem{
 			Segment lookaheadPoint = currentPathTrajectory.get(lookaheadPointIndex);
 			Translation2d lookaheadPosition = new Translation2d(lookaheadPoint.x, lookaheadPoint.y);
 			Rotation2d angleToLookahead = lookaheadPosition.translateBy(pose.getTranslation().inverse()).direction();
-			//angleToLookahead = Rotation2d.fromRadians(pathFollower.getHeading());
+			angleToLookahead = Rotation2d.fromRadians(pathFollower.getHeading());
 			if(currentPathSegment >= (currentPathTrajectory.length() - 1)){
 				double error = currentPath.getFinalPosition().translateBy(pose.getTranslation().inverse()).norm();
 				//if(error <= (1.0/12.0)){
